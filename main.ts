@@ -13,7 +13,7 @@ type Inputs = {
   pullRequestNumber: number;
 };
 
-export const update = async (inputs: Inputs) => {
+export const update = async (inputs: Inputs): Promise<void> => {
   const labelName = label.newName("update-branch-");
   const description =
     `${inputs.owner}/${inputs.repo}/${inputs.pullRequestNumber}`;
@@ -37,6 +37,6 @@ export const update = async (inputs: Inputs) => {
     description: description,
   });
   core.notice(
-    `Branches will be updated. Please check the server workflow: ${github.context.serverUrl}/${inputs.serverRepositoryOwner}/${inputs.serverRepositoryName}/actions`,
+    `Branch will be updated. Pull request: ${github.context.serverUrl}/${inputs.owner}/${inputs.repo}/pull/${inputs.pullRequestNumber}`,
   );
 };
