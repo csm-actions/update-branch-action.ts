@@ -1,7 +1,7 @@
 {
   "name": "@csm-actions/update-branch-action",
   "tasks": {},
-  "version": "0.0.1",
+  "version": "0.0.2",
   "exports": "./main.ts",
   "publish": {
     "include": ["LICENSE", "README.md", "main.ts"]
