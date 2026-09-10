@@ -5,6 +5,13 @@ import * as label from "@csm-actions/label";
 type Inputs = {
   appID?: string;
   appPrivateKey?: string;
+  /**
+   * A callback signing a JSON Web Token.
+   *
+   * It's passed instead of appPrivateKey when a GitHub App private key is
+   * stored in a KMS or a HSM and can't be exported.
+   */
+  createJwt?: label.Inputs["createJwt"];
   octokit?: ReturnType<typeof github.getOctokit>;
   serverRepositoryName: string;
   serverRepositoryOwner: string;
@@ -30,6 +37,7 @@ export const update = async (inputs: Inputs): Promise<void> => {
   await label.create({
     appId: inputs.appID,
     privateKey: inputs.appPrivateKey,
+    createJwt: inputs.createJwt,
     octokit: inputs.octokit,
     owner: inputs.serverRepositoryOwner,
     repo: inputs.serverRepositoryName,

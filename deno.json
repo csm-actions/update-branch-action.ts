@@ -11,6 +11,6 @@
     "@actions/core": "npm:@actions/core@^3.0.0",
     "@actions/exec": "npm:@actions/exec@^3.0.0",
     "@actions/github": "npm:@actions/github@^9.0.0",
-    "@csm-actions/label": "jsr:@csm-actions/label@^0.0.8"
+    "@csm-actions/label": "jsr:@csm-actions/label@^0.0.9"
   }
 }
