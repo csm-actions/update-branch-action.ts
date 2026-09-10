@@ -1013,7 +1013,6 @@
   "workspace": {
     "dependencies": [
       "jsr:@csm-actions/label@^0.0.8",
-      "jsr:@suzuki-shunsuke/github-app-token@^0.0.4",
       "npm:@actions/artifact@^6.2.0",
       "npm:@actions/core@3",
       "npm:@actions/exec@3",
