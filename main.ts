@@ -3,9 +3,17 @@ import * as github from "@actions/github";
 import * as label from "@csm-actions/label";
 
 type Inputs = {
-  appID?: string;
-  appPrivateKey?: string;
+  /** An Octokit client authenticated with an installation access token. */
   octokit?: ReturnType<typeof github.getOctokit>;
+  /**
+   * An Octokit client authenticated as a GitHub App.
+   *
+   * It's used to create an installation access token for the server
+   * repository, which is revoked once the label is created.
+   * Build it with @octokit/auth-app, passing either a private key or a
+   * createJwt callback when the key is stored in a KMS or a HSM.
+   */
+  appOctokit?: label.Inputs["appOctokit"];
   serverRepositoryName: string;
   serverRepositoryOwner: string;
   owner: string;
@@ -28,9 +36,8 @@ export const update = async (inputs: Inputs): Promise<void> => {
     })
   }`);
   await label.create({
-    appId: inputs.appID,
-    privateKey: inputs.appPrivateKey,
     octokit: inputs.octokit,
+    appOctokit: inputs.appOctokit,
     owner: inputs.serverRepositoryOwner,
     repo: inputs.serverRepositoryName,
     name: labelName,
