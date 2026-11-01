@@ -37,7 +37,10 @@ type Inputs = {
    * point to the same repository.
    */
   serverRepositoryName?: string;
-  /** The server repository owner */
+  /**
+   * The server repository owner.
+   * It's required when serverRepositoryName is set.
+   */
   serverRepositoryOwner?: string;
   owner: string;
   repo: string;
@@ -68,9 +71,15 @@ const dispatchWorkflow = async (
 ): Promise<dispatch.WorkflowRun | undefined> => {
   const workflowRef = dispatch.parseWorkflowRef(serverWorkflowRef);
   if (inputs.serverRepositoryName) {
+    // Compare both the owner and the name, as the label flow requires both.
+    if (!inputs.serverRepositoryOwner) {
+      throw new Error(
+        "serverRepositoryOwner is required when serverRepositoryName is set",
+      );
+    }
     dispatch.validateRepository(
       workflowRef,
-      inputs.serverRepositoryOwner || workflowRef.owner,
+      inputs.serverRepositoryOwner,
       inputs.serverRepositoryName,
     );
   }
